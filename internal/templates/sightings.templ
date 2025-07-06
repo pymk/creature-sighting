@@ -1,0 +1,115 @@
+package templates
+
+import (
+	"fmt"
+	"github.com/pymk/creature-sighting/internal/sighting"
+)
+
+templ SightingsList(sightings []sighting.Sighting) {
+	@Layout("Recent Encounters") {
+		<div class="content-section">
+			<h2>Recent Encounters</h2>
+			<p>Chronological listing of verified creature sightings. All reports classified by field operatives.</p>
+			<a href="/sighting/random" class="btn btn-primary">Generate New Report</a>
+		</div>
+		if len(sightings) == 0 {
+			<div class="empty-state">
+				<h3>No encounters logged</h3>
+				<p>Database empty. Generate initial reports to populate system.</p>
+				<a href="/sighting/random" class="btn btn-primary">Generate Report</a>
+			</div>
+		} else {
+			<div class="sightings-list">
+				for _, s := range sightings {
+					<div class="sighting-item">
+						<div class="sighting-header">
+							<span class="name">{ s.Name }</span>
+							<span class="category">{ s.Category }</span>
+						</div>
+						<div class="sighting-meta">
+							<span class="sighting-location">{ s.Location.City }, { s.Location.Country }</span>
+							<span class="sighting-type"> - { s.Type }</span>
+						</div>
+						<div class="sighting-description">
+							{ s.Description }
+						</div>
+						<div class="sighting-footer">
+							<span class="timestamp">{ s.Timestamp.Format("2006-01-02 15:04") }</span>
+							<a href={ templ.URL("/sighting/" + s.ID) } class="btn btn-small">Details</a>
+						</div>
+					</div>
+				}
+			</div>
+		}
+	}
+}
+
+templ SightingDetail(s sighting.Sighting) {
+	@Layout("Report: " + s.Name) {
+		<div class="sighting-detail">
+			<div class="detail-header">
+				<h2>ENCOUNTER REPORT: { s.Name }</h2>
+				<span class="category">CLASSIFICATION: { s.Category }</span>
+			</div>
+			<div class="detail-section">
+				<h3>Basic Information</h3>
+				<table class="detail-table">
+					<tr>
+						<td>Type:</td>
+						<td>{ s.Type }</td>
+					</tr>
+					<tr>
+						<td>Category:</td>
+						<td>{ s.Category }</td>
+					</tr>
+					<tr>
+						<td>Timestamp:</td>
+						<td>{ s.Timestamp.Format("2006-01-02 15:04:05 MST") }</td>
+					</tr>
+				</table>
+			</div>
+			<div class="detail-section">
+				<h3>Location Data</h3>
+				<table class="detail-table">
+					<tr>
+						<td>City:</td>
+						<td>{ s.Location.City }</td>
+					</tr>
+					<tr>
+						<td>Country:</td>
+						<td>{ s.Location.Country }</td>
+					</tr>
+					<tr>
+						<td>Region:</td>
+						<td>{ s.Location.Region }</td>
+					</tr>
+					<tr>
+						<td>Coordinates:</td>
+						<td>{ fmt.Sprintf("%.6f, %.6f", s.Location.Latitude, s.Location.Longitude) }</td>
+					</tr>
+				</table>
+			</div>
+			if len(s.Attributes) > 0 {
+				<div class="detail-section">
+					<h3>Entity Attributes</h3>
+					<table class="detail-table">
+						for key, value := range s.Attributes {
+							<tr>
+								<td>{ key }:</td>
+								<td>{ fmt.Sprintf("%v", value) }</td>
+							</tr>
+						}
+					</table>
+				</div>
+			}
+			<div class="detail-section">
+				<h3>Field Report</h3>
+				<p class="description-text">{ s.Description }</p>
+			</div>
+			<div class="actions">
+				<a href="/sightings" class="btn">Back to Database</a>
+				<a href="/sighting/random" class="btn btn-primary">Generate New Report</a>
+			</div>
+		</div>
+	}
+}

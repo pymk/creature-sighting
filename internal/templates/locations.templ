@@ -1,0 +1,28 @@
+package templates
+
+import (
+	"github.com/pymk/creature-sighting/internal/sighting"
+)
+
+templ LocationsList(locations []sighting.Location) {
+	@Layout("Geographic Data") {
+		<div class="content-section">
+			<h2>Geographic Data</h2>
+			<p>Active monitoring locations worldwide. Field stations equipped with detection arrays.</p>
+		</div>
+		
+		<div class="data-list">
+			<h3>Operational Sites</h3>
+			<ul>
+				for _, loc := range locations {
+					<li>
+						<a href={ templ.URL("/sightings?location=" + loc.City) }>
+							{ loc.City }, { loc.Country }
+						</a>
+						- { loc.Region } ({ loc.Latitude }, { loc.Longitude })
+					</li>
+				}
+			</ul>
+		</div>
+	}
+}

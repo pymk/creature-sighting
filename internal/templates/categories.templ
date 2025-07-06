@@ -1,0 +1,31 @@
+package templates
+
+templ CategoriesList(categories []string) {
+	@Layout("Entity Classifications") {
+		<div class="content-section">
+			<h2>Entity Classifications</h2>
+			<p>Taxonomic breakdown of monitored creature types. Classification system based on threat assessment protocols.</p>
+		</div>
+		
+		<div class="data-list">
+			<h3>Active Categories</h3>
+			<ul>
+				for _, cat := range categories {
+					<li>
+						<a href={ templ.URL("/sightings?category=" + cat) }>
+							{ cat }
+						</a>
+						- Large-scale entities, urban threat level
+					</li>
+				}
+			</ul>
+		</div>
+		
+		<div class="content-section">
+			<h3>Classification Criteria</h3>
+			<div class="system-info">
+				<strong>KAIJU:</strong> Entities exceeding 50m height, displaying aggressive territorial behavior, capable of significant infrastructure damage. Requires immediate containment protocols upon detection.
+			</div>
+		</div>
+	}
+}
