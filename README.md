@@ -1,5 +1,5 @@
 > [!NOTE]
-> This over-engineered project serves as a comprehensive learning exercise, exploring development workflows with **Claude Code**. It was built purely to learn development using AI tools. Rather than writing code directly, I focused entirely on orchestrating Claude Code through prompting and project management.
+> This over-engineered project served as a learning exercise for development workflows with **Claude Code**. It was built purely to learn how to use agentic coding tools. I focused entirely on orchestrating Claude Code through prompting and project management.
 
 ---
 
