@@ -15,7 +15,7 @@ Features both a web interface for viewing sightings and a REST API for programma
 make run
 ```
 
-The server will start on port 8080.
+The server will start on http://localhost:8080.
 
 ## Web Interface
 
@@ -90,15 +90,16 @@ type Generator interface {
 ## Development
 
 ```bash
-# Run tests
-make test
-
-# Format code
-make fmt
-
-# Run linters
-make lint
-
-# Clean build artifacts
-make clean
+make test   # Run tests
+make fmt    # Format code
+make lint   # Run linters
+make clean  # Clean build artifacts
 ```
+
+## Screenshots
+
+![01](https://github.com/user-attachments/assets/bed45f93-c74e-4630-92ad-c40fdeb88b39)
+
+
+![02](https://github.com/user-attachments/assets/a61b850e-64f4-4da7-915c-318d94ddcc86)
+
