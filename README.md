@@ -15,7 +15,7 @@ Features both a web interface for viewing sightings and a REST API for programma
 make run
 ```
 
-The server will start on http://localhost:8080.
+The server will start on port 8080.
 
 ## Web Interface
 
